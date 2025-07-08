@@ -13,7 +13,9 @@
    ```bash
    uvicorn frontend.api:app --reload
    ```
-6. **Access the API docs:**
+6. **Open the Web UI:**
+   Open [http://localhost:8000/index.html](http://localhost:8000/index.html) in your browser to use the chatbot interface.
+7. **(Optional) Access the API docs:**
    Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 
 ## Libraries Used
@@ -33,6 +35,13 @@ Send a POST request to `/query` endpoint with JSON body:
 {
   "query": "What is the title of the document?",
   "role": "General"
+}
+```
+Sample response:
+```json
+{
+  "answer": "The title of the document is 'The Black Cat'.",
+  "sources": ["The Black Cat Author Edgar Allan Poe.pdf"]
 }
 ```
 
