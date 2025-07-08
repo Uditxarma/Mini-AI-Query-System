@@ -15,6 +15,7 @@
    ```
 6. **Open the Web UI:**
    Open [http://localhost:8000/index.html](http://localhost:8000/index.html) in your browser to use the chatbot interface.
+
 7. **(Optional) Access the API docs:**
    Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 
