@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-community
+langchain-ollama
+langchain-chroma
+langchain-groq
+python-dotenv
+langchain-text-splitters
+unstructured[pdf]
+faiss-cpu
+fastapi

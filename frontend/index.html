@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini AI Query System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1 { text-align: center; color: #333; }
+        label { font-weight: bold; }
+        textarea, input, select { width: 100%; margin: 8px 0 16px 0; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        button { background: #007bff; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .response, .sources { margin-top: 24px; }
+        .sources { font-size: 0.95em; color: #555; }
+        .feedback { margin-top: 32px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mini AI Query System</h1>
+        <form id="queryForm">
+            <label for="role">Role:</label>
+            <select id="role" name="role">
+                <option value="General">General</option>
+                <option value="Manager">Manager</option>
+                <option value="Engineer">Engineer</option>
+            </select>
+            <label for="query">Your Query:</label>
+            <textarea id="query" name="query" rows="3" required></textarea>
+            <button type="submit">Ask</button>
+        </form>
+        <div class="response" id="response"></div>
+        <div class="sources" id="sources"></div>
+        <div class="feedback" id="feedbackSection" style="display:none;">
+            <h3>Was this answer helpful?</h3>
+            <button onclick="sendFeedback(true)">👍 Yes</button>
+            <button onclick="sendFeedback(false)">👎 No</button>
+            <div id="feedbackForm" style="display:none;">
+                <label for="user_comment">Comment (optional):</label>
+                <textarea id="user_comment" rows="2"></textarea>
+                <button onclick="submitComment()">Submit</button>
+            </div>
+            <div id="feedbackMsg"></div>
+        </div>
+    </div>
+    <script>
+        let lastQuery = "";
+        let lastAnswer = "";
+        let lastSources = [];
+        let lastRole = "General";
+        let lastHelpful = null;
+
+        document.getElementById('queryForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            const role = document.getElementById('role').value;
+            lastQuery = query;
+            lastRole = role;
+            document.getElementById('response').innerHTML = 'Loading...';
+            document.getElementById('sources').innerHTML = '';
+            document.getElementById('feedbackSection').style.display = 'none';
+            document.getElementById('feedbackMsg').innerHTML = '';
+            try {
+                const res = await fetch('/query', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, role })
+                });
+                const data = await res.json();
+                if(data.answer) {
+                    lastAnswer = data.answer;
+                    lastSources = data.sources;
+                    document.getElementById('response').innerHTML = '<b>Answer:</b><br>' + data.answer;
+                    document.getElementById('sources').innerHTML = '<b>Sources:</b> ' + (data.sources && data.sources.length ? data.sources.join(', ') : 'N/A');
+                    document.getElementById('feedbackSection').style.display = 'block';
+                } else {
+                    document.getElementById('response').innerHTML = '<span class="error">' + (data.error || 'No answer returned.') + '</span>';
+                }
+            } catch (err) {
+                document.getElementById('response').innerHTML = '<span class="error">Error: ' + err + '</span>';
+            }
+        };
+
+        function sendFeedback(helpful) {
+            lastHelpful = helpful;
+            document.getElementById('feedbackForm').style.display = helpful ? 'none' : 'block';
+            if(helpful) submitComment();
+        }
+        async function submitComment() {
+            const user_comment = document.getElementById('user_comment').value;
+            try {
+                const res = await fetch('/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: lastQuery,
+                        answer: lastAnswer,
+                        helpful: lastHelpful,
+                        user_comment
+                    })
+                });
+                const data = await res.json();
+                if(data.status) {
+                    document.getElementById('feedbackMsg').innerHTML = '<span class="success">Thank you for your feedback!</span>';
+                } else {
+                    document.getElementById('feedbackMsg').innerHTML = '<span class="error">Feedback failed.</span>';
+                }
+            } catch (err) {
+                document.getElementById('feedbackMsg').innerHTML = '<span class="error">Error: ' + err + '</span>';
+            }
+            document.getElementById('feedbackForm').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

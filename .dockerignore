@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pkl
+vectorstore/cache/
+.DS_Store
+*.pdf
+.env
+.venv/
+venv/
+log/feedback_log.txt
