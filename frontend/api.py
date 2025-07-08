@@ -11,7 +11,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
-app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__)), html=True), name="static")
 pipeline = Pipeline()
 pipeline.pipe()
 
@@ -47,3 +46,6 @@ async def feedback(input: FeedbackInput):
         f.write(f"{input.query} | {input.answer} | {input.helpful} | {input.user_comment}\n")
     logger.info("Feedback logged successfully.")
     return {"status": "feedback logged"}
+
+# Mount static files after all API routes
+app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__)), html=True), name="static")
