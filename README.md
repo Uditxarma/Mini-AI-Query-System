@@ -23,6 +23,32 @@ This Retrieval-Augmented Generation (RAG) system lets you ask questions about yo
 - Embedding and LLM models are swappable
 - Designed for demo/small-medium sets; optimize for large-scale use
 
+## Project Structure
+
+```
+Mini-AI-Query-System/
+├── backend/
+│   ├── __init__.py
+│   ├── rag_pipeline.py
+│   ├── retrieval_chain.py
+│   ├── text_chunks.py
+│   └── vector_store.py
+├── docs/
+│   └── <your-pdf-files>.pdf
+├── frontend/
+│   ├── api.py
+│   └── index.html
+├── vectorstore/
+│   └── cache/
+│       └── faiss_index/
+├── images/
+│   └── sample.png
+├── requirements.txt
+├── Dockerfile
+├── README.md
+└── ...
+```
+
 ## Setup Instructions
 1. **Clone the repository** and navigate to the project directory.
 2. **Install Python 3.11+** (recommended).
@@ -85,12 +111,17 @@ Send feedback to `/feedback` endpoint:
 
 ---
 
-## Example Result Screenshot
-
-Below is a sample result view from the web UI:
+## 📹 Video Walkthrough
 
 <p align="center">
-  <img src="images/Sample.png" alt="Sample Result" width="600"/>
+  <video width="600" controls poster="sample/Sample.png">
+    <source src="sample/Live.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+<p align="center">
+  <b>Watch the short video demo of the Mini AI Query System above.</b>
 </p>
 
 
