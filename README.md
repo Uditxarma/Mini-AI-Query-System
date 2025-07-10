@@ -67,9 +67,6 @@ Sample response:
 }
 ```
 
-Result view:
-![Sample Result](images/screenshot.png)
-
 Send feedback to `/feedback` endpoint:
 ```json
 {
@@ -85,5 +82,15 @@ Send feedback to `/feedback` endpoint:
 - Vectorstore is cached for faster startup; cache is invalidated if PDFs change.
 - Basic role-based context is supported.
 - For issues, check logs or open a GitHub issue.
+
+---
+
+## Example Result Screenshot
+
+Below is a sample result view from the web UI:
+
+<p align="center">
+  <img src="images/sample.png" alt="Sample Result" width="600"/>
+</p>
 
 
