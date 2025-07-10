@@ -114,14 +114,13 @@ Send feedback to `/feedback` endpoint:
 ## 📹 Video Walkthrough
 
 <p align="center">
-  <video width="600" controls poster="sample/Sample.png">
-    <source src="sample/Live.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <a href="sample/Live.mp4" target="_blank">
+    <img src="sample/Sample.png" alt="Watch the video walkthrough" width="600" style="border-radius:12px; box-shadow:0 2px 8px #0002;"/>
+  </a>
 </p>
 
 <p align="center">
-  <b>Watch the short video demo of the Mini AI Query System above.</b>
+  <b>Click the image above to watch a short video demo of the Mini AI Query System.</b>
 </p>
 
 
