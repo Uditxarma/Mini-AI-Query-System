@@ -90,7 +90,7 @@ Send feedback to `/feedback` endpoint:
 Below is a sample result view from the web UI:
 
 <p align="center">
-  <img src="images/sample.png" alt="Sample Result" width="600"/>
+  <img src="images/Sample.png" alt="Sample Result" width="600"/>
 </p>
 
 
