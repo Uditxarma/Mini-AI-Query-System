@@ -64,5 +64,4 @@ Send feedback to `/feedback` endpoint:
 - The system is designed for demonstration and may not scale for large document sets or high concurrency.
 - Ensure all dependencies are installed and compatible with your Python version.
 
----
-For any issues, please check the logs or open an issue in the repository.
+
